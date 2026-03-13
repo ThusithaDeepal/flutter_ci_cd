@@ -34,3 +34,16 @@ jobs:
             build/app/outputs/flutter-apk/app-release.apk
             build/app/outputs/bundle/release/app-release.aab
             build/ios/ipa/Runner.ipa
+
+      - name: Upload Android to Firebase
+        run: |
+          firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
+          --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} \
+          --groups testers \
+          --token ${{ secrets.FIREBASE_TOKEN }}
+      - name: Upload iOS to Firebase
+        run: |
+          firebase appdistribution:distribute build/ios/ipa/Runner.ipa \
+            --app ${{ secrets.FIREBASE_IOS_APP_ID }} \
+            --groups testers \
+            --token ${{ secrets.FIREBASE_TOKEN }}
