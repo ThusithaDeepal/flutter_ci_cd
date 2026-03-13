@@ -12,7 +12,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/cehckout@v3
+      - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.35.2
@@ -27,7 +27,7 @@ jobs:
       - name: Build ios IPA
         run: flutter build ipa --no--codesign #allows you to build the IPA without requiring a valid Apple Developer account for local development.
 
-      - uses: actions/upload-artifcat@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: myapp Releases
           path: build/app/outputs/flutter-apk/app-release.apk
