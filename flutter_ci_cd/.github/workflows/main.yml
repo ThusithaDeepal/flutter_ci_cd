@@ -1,0 +1,35 @@
+name: Flutter CI/CD
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  buiid:
+    name: Build & Release
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/cehckout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.2
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - name: Build APK
+        run: flutter build apk
+      - name: Build appbundle
+        run: flutter build appbundle
+
+      - name: Build ios IPA
+        run: flutter build ipa --no--codesign #allows you to build the IPA without requiring a valid Apple Developer account for local development.
+
+      - uses: actions/upload-artifcat@v3
+        with:
+          name: myapp Releases
+          path: build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+            build/ios/ipa/app_release.ipa
