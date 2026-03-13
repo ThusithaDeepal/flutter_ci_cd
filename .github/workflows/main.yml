@@ -27,7 +27,7 @@ jobs:
       - name: Build ios IPA
         run: flutter build ipa --no--codesign #allows you to build the IPA without requiring a valid Apple Developer account for local development.
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: myapp Releases
           path: build/app/outputs/flutter-apk/app-release.apk
