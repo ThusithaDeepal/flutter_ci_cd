@@ -24,8 +24,8 @@ jobs:
       - name: Build appbundle
         run: flutter build appbundle
 
-      - name: Build ios IPA
-        run: flutter build ipa --no-codesign #allows you to build the IPA without requiring a valid Apple Developer account for local development.
+      # - name: Build ios IPA
+      #   run: flutter build ipa --no-codesign #allows you to build the IPA without requiring a valid Apple Developer account for local development.
 
       - uses: actions/upload-artifact@v4
         with:
@@ -33,7 +33,7 @@ jobs:
           path: |
             build/app/outputs/flutter-apk/app-release.apk
             build/app/outputs/bundle/release/app-release.aab
-            build/ios/ipa/Runner.ipa
+            # build/ios/ipa/Runner.ipa
 
       - name: Upload Android to Firebase
         run: |
@@ -41,9 +41,9 @@ jobs:
           --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} \
           --groups testers \
           --token ${{ secrets.FIREBASE_TOKEN }}
-      - name: Upload iOS to Firebase
-        run: |
-          firebase appdistribution:distribute build/ios/ipa/Runner.ipa \
-            --app ${{ secrets.FIREBASE_IOS_APP_ID }} \
-            --groups testers \
-            --token ${{ secrets.FIREBASE_TOKEN }}
+      # - name: Upload iOS to Firebase
+      #   run: |
+      #     firebase appdistribution:distribute build/ios/ipa/Runner.ipa \
+      #       --app ${{ secrets.FIREBASE_IOS_APP_ID }} \
+      #       --groups testers \
+      #       --token ${{ secrets.FIREBASE_TOKEN }}
